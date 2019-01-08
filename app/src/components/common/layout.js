@@ -55,25 +55,36 @@ class Layout extends Component {
             </div>
     }
 
+    formatBody(waste) {
+
+    }
+
     displayWastes() {
         return this.state.filteredWastes.length > 0 && this.state.filteredWastes.map((waste, index) => {
-            // console.log(waste)
+            const listItems = this.formatBody(waste)
+            console.log(listItems)
             return (<div key={index}>
-                <div className="inline">
-                    <span>
-                        <i className="fa fa-star inline" aria-hidden="true"></i>
-                        <p className="lead inline move-right"><b>{waste.title}</b></p>
-                    </span>
+                <div className="example-content-main">
+                    <i class="fa fa-star inline default" aria-hidden="true"></i>
+                    <p className="lead inline">
+                        <b className="move-right">{waste.title}</b>
+                    </p>
+                    <br /><br />
+                    <br /><br />
                 </div>
-                {/* <div class="inline">
+                <div className="add-margin" style={{
+                    float: 'right',
+                    marginTop: '-12%'
+                }}>
                     <ul>
-                        <li>Cras justo odio</li>
-                        <li>Dapibus ac facilisis in</li>
-                        <li>Morbi leo risus</li>
-                        <li>Porta ac consectetur ac</li>
-                        <li>Vestibulum at eros</li>
+                        <li className="list-item">Tetskenjen3 qkjhemnwn3 qkjhemnw</li>
+                        <li className="list-item">n3 qkjhemnw</li>
+                        <li className="list-item">m c2qdj3de2</li>
+                        <li className="list-item">fbq243hdhj1`</li>
+                        <li className="list-item">dv2uqtyd3d2</li>
                     </ul>
-                </div> */}
+                </div>
+                <br /><br /><br /><br />
             </div>
             )
         })
@@ -105,9 +116,7 @@ class Layout extends Component {
                         </div>
                         <br /> {this.loading()} <br />
                         <div className="container-fluid">
-                            <div className="row">
-                                {this.displayWastes()}
-                            </div>
+                            {this.displayWastes()}
                         </div>
                     </div>
                     {this.displayFavourites()}
