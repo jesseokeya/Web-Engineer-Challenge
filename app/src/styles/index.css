@@ -85,9 +85,18 @@
 }
 
 .add-margin {
-    margin-bottom: '30%';
+    margin-bottom: '10%';
 }
 
 .default {
     color: #aaaaaa;
+}
+
+.contain-div {
+    margin-left: 1.6%;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
 }

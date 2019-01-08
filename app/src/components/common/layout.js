@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import $ from 'jquery';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWastes, searchWastes } from '../../actions/wasteActions';
@@ -10,16 +11,23 @@ class Layout extends Component {
             favourites: [],
             wastes: [],
             search: '',
-            filteredWastes: [],
             loading: true
         }
     }
 
     componentWillReceiveProps(nextProps) {
+        let wastes = nextProps.wastes.wastes
+        wastes = wastes.map(waste => {
+            let body = $.parseHTML(waste.body)[0].data
+            waste.body = body
+            if (!body.includes('li') || !body.includes('ul')) {
+                waste.body = `<ul><li>${body}</li></ul>`
+            }
+            return waste
+        })
         this.setState({
             wastes: nextProps.wastes.wastes,
-            loading: nextProps.wastes.loading,
-            filteredWastes: nextProps.wastes.wastes,
+            loading: nextProps.wastes.loading
         })
     }
 
@@ -28,15 +36,11 @@ class Layout extends Component {
     }
 
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value }, () => this.handleSubmit())
+        this.setState({ [e.target.name]: e.target.value })
     }
 
     handleSubmit() {
-        const searchTerm = this.state.search
-        const filteredWastes = this.state.wastes.filter(
-            waste => waste.keywords.includes(searchTerm) || waste.category.includes(searchTerm) || waste.title.includes(searchTerm)
-        )
-        this.setState({ filteredWastes })
+        this.setState({ loading: true }, _ => this.props.searchWastes(this.state))
     }
 
     loading() {
@@ -55,37 +59,25 @@ class Layout extends Component {
             </div>
     }
 
-    formatBody(waste) {
-        const items = waste.body.split('')
-    }
-
     displayWastes() {
-        return this.state.filteredWastes.length > 0 && this.state.filteredWastes.map((waste, index) => {
-            const listItems = this.formatBody(waste)
-            console.log(listItems)
-            return (<div key={index}>
-                <div className="example-content-main">
-                    <i class="fa fa-star inline default" aria-hidden="true"></i>
+        return !this.state.loading && this.state.wastes.length > 0 && this.state.wastes.map((waste, index) => {
+            return (<div className="col" key={index}>
+                <div className="contain-div">
+                    <i className="fa fa-star inline default" aria-hidden="true"></i>
                     <p className="lead inline">
-                        <b className="move-right">{waste.title}</b>
+                        <strong className="move-right">{waste.title}</strong>
                     </p>
-                    <br /><br />
-                    <br /><br />
+                    <br />
                 </div>
                 <div className="add-margin" style={{
                     float: 'right',
-                    marginTop: '-12%'
+                    marginTop: '-5%',
+                    minWidth: '35%'
                 }}>
-                    <ul>
-                        {waste.body}
-                        <li className="list-item">Tetskenjen3 qkjhemnwn3 qkjhemnw</li>
-                        <li className="list-item">n3 qkjhemnw</li>
-                        <li className="list-item">m c2qdj3de2</li>
-                        <li className="list-item">fbq243hdhj1`</li>
-                        <li className="list-item">dv2uqtyd3d2</li>
-                    </ul>
+                  <div dangerouslySetInnerHTML={{__html: waste.body}} />
                 </div>
-                <br /><br /><br /><br />
+                <br />
+                <br />
             </div>
             )
         })
