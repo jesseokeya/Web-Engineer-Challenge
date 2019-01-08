@@ -16,17 +16,16 @@ class Layout extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        let wastes = nextProps.wastes.wastes
-        wastes = wastes.map(waste => {
+        const wastes = nextProps.wastes.wastes.map(waste => {
             let body = $.parseHTML(waste.body)[0].data
             waste.body = body
-            if (!body.includes('li') || !body.includes('ul')) {
+            if (!body.includes('<li>') || !body.includes('<ul>')) {
                 waste.body = `<ul><li>${body}</li></ul>`
             }
             return waste
         })
         this.setState({
-            wastes: nextProps.wastes.wastes,
+            wastes,
             loading: nextProps.wastes.loading
         })
     }
@@ -51,40 +50,45 @@ class Layout extends Component {
     }
 
     displayFavourites() {
+        console.log(this.state.favourites)
         return this.state.favourites.length > 0 &&
             <div className="jumbotron">
                 <div className="container-fluid jumbotron-up">
                     <h3 className="text-head">Favourites</h3>
+                    {this.state.favourites.length > 0 && this.state.favourites.map((waste, index) => this.displayWastes(waste, index))}
                 </div>
             </div>
+    }
+
+    favourite(e) {
+        const title = e.target.id.trim()
+        const favourited = this.state.wastes.filter(waste => waste.title.trim() === title)
+        e.target.className = `${e.target.className} favourite`
+        this.setState({ favourites: [...favourited]})
+    }
+
+    displayWaste(waste, index) {
+        return (<div className="card-group" key={index}>
+            <div className="card contain-div custom">
+                <p className="lead inline">
+                <i id={waste.title} onClick={this.favourite.bind(this)} className="fa fa-star inline default" aria-hidden="true"></i>
+                    <strong className="move-right">{waste.title}</strong>
+                </p>
+                <br />
+            </div>
+            <div className="card add-margin custom">
+                <div dangerouslySetInnerHTML={{ __html: waste.body }} />
+            </div>
+        </div>)
     }
 
     displayWastes() {
-        return !this.state.loading && this.state.wastes.length > 0 && this.state.wastes.map((waste, index) => {
-            return (<div className="col" key={index}>
-                <div className="contain-div">
-                    <i className="fa fa-star inline default" aria-hidden="true"></i>
-                    <p className="lead inline">
-                        <strong className="move-right">{waste.title}</strong>
-                    </p>
-                    <br />
-                </div>
-                <div className="add-margin" style={{
-                    float: 'right',
-                    marginTop: '-5%',
-                    minWidth: '35%'
-                }}>
-                  <div dangerouslySetInnerHTML={{__html: waste.body}} />
-                </div>
-                <br />
-                <br />
-            </div>
-            )
-        })
+        return !this.state.loading   && 
+        this.state.wastes.length > 0 && 
+        this.state.wastes.map((waste, index) => this.displayWaste(waste, index))
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="container">
                 <div className="card">
@@ -112,6 +116,7 @@ class Layout extends Component {
                             {this.displayWastes()}
                         </div>
                     </div>
+                    <br />
                     {this.displayFavourites()}
                 </div>
             </div>
