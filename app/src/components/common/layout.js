@@ -62,16 +62,19 @@ class Layout extends Component {
     favourite(e) {
         const title = e.target.id.trim()
         const className = e.target.className
-        console.log(className)
         if (className.trim() === 'fa fa-star inline default') {
             const favourited = this.state.wastes.filter(waste => waste.title.trim() === title)
             const previiousFavourite = this.state.favourites
             e.target.className = `${e.target.className} favourite`
             const favourites = this.tagFavourites([...favourited, ...previiousFavourite])
             this.setState({ favourites })
-        } else {
+        }
+        if (className.trim() === `fa fa-star inline default favourite`) {
             e.target.className = `fa fa-star inline default`
-            const favourites = this.state.favourites.filter(favourite => favourite.title.trim() === title)
+            $(`#${title}`).removeClass('favourite')
+            let favourites = this.state.favourites
+            favourites = favourites.filter(favourite => favourite.title.trim() !== title)
+            console.log(favourites)
             this.setState({ favourites })
         }
     }
@@ -88,7 +91,7 @@ class Layout extends Component {
         return (<div className="card-group" key={index}>
             <div className="card contain-div custom">
                 <p className="lead inline">
-                <i id={waste.title} onClick={this.favourite.bind(this)} className={`fa fa-star inline default ${favourited}`} aria-hidden="true"></i>
+                    <i id={waste.title} onClick={this.favourite.bind(this)} className={`fa fa-star inline default ${favourited}`} aria-hidden="true"></i>
                     <strong className="move-right">{waste.title}</strong>
                 </p>
                 <br />
@@ -100,13 +103,12 @@ class Layout extends Component {
     }
 
     displayWastes() {
-        return !this.state.loading   && 
-        this.state.wastes.length > 0 && 
-        this.state.wastes.map((waste, index) => this.displayWaste(waste, index))
+        return !this.state.loading &&
+            this.state.wastes.length > 0 &&
+            this.state.wastes.map((waste, index) => this.displayWaste(waste, index))
     }
 
     render() {
-        console.log(this.state)
         return (
             <div className="container">
                 <div className="card">
