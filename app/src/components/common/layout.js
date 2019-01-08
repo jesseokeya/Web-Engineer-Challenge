@@ -16,7 +16,7 @@ class Layout extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        const wastes = nextProps.wastes.wastes.map(waste => {
+        let wastes = nextProps.wastes.wastes.map(waste => {
             let body = $.parseHTML(waste.body)[0].data
             waste.body = body
             if (!body.includes('<li>') || !body.includes('<ul>')) {
@@ -24,6 +24,7 @@ class Layout extends Component {
             }
             return waste
         })
+        wastes = this.ensureFavourites(wastes)
         this.setState({
             wastes,
             loading: nextProps.wastes.loading
@@ -31,6 +32,12 @@ class Layout extends Component {
     }
 
     componentDidMount() {
+        const search = $('#search')
+        search.keypress(e => {
+            if (e.which === 13) {
+                $('#searchButton').click()
+            }
+        })
         this.props.getWastes()
     }
 
@@ -47,6 +54,19 @@ class Layout extends Component {
             <div className="text-center">
                 <div className="lds-hourglass"></div>
             </div>
+    }
+
+    ensureFavourites(wastes) {
+        const favourites = this.state.favourites.map(favourite => favourite.title)
+        wastes = wastes.map(waste => {
+            favourites.forEach(title => {
+                if (waste.title.trim() === title.trim()) {
+                    waste.favourited = true
+                }
+            })
+            return waste
+        })
+        return wastes
     }
 
     displayFavourites() {
@@ -71,7 +91,6 @@ class Layout extends Component {
         }
         if (className.trim() === `fa fa-star inline default favourite`) {
             e.target.className = `fa fa-star inline default`
-            $(`#${title}`).removeClass('favourite')
             let favourites = this.state.favourites
             favourites = favourites.filter(favourite => favourite.title.trim() !== title)
             console.log(favourites)
@@ -125,9 +144,9 @@ class Layout extends Component {
                     <div className="container-fluid">
                         <div className="text-center">
                             <div className="col-md-10 col-lg-11 col-sm-4 inline">
-                                <input name="search" className="form-control form-control-lg" type="text" placeholder="Search" onChange={this.handleChange.bind(this)} />
+                                <input id="search" name="search" className="form-control form-control-lg" type="text" placeholder="Search" onChange={this.handleChange.bind(this)} />
                             </div>
-                            <button className="btn btn-primary btn-lg bg-search inline" aria-pressed="true" onClick={this.handleSubmit.bind(this)}>
+                            <button id="searchButton" className="btn btn-primary btn-lg bg-search inline" aria-pressed="true" onClick={this.handleSubmit.bind(this)}>
                                 <i className="fa fa-search" aria-hidden="true"></i>
                             </button>
                         </div>
