@@ -50,12 +50,11 @@ class Layout extends Component {
     }
 
     displayFavourites() {
-        console.log(this.state.favourites)
         return this.state.favourites.length > 0 &&
             <div className="jumbotron">
                 <div className="container-fluid jumbotron-up">
                     <h3 className="text-head">Favourites</h3>
-                    {this.state.favourites.length > 0 && this.state.favourites.map((waste, index) => this.displayWastes(waste, index))}
+                    {this.state.favourites.length > 0 && this.state.favourites.map((waste, index) => this.displayWaste(waste, index))}
                 </div>
             </div>
     }
@@ -63,15 +62,25 @@ class Layout extends Component {
     favourite(e) {
         const title = e.target.id.trim()
         const favourited = this.state.wastes.filter(waste => waste.title.trim() === title)
+        const previiousFavourite = this.state.favourites
         e.target.className = `${e.target.className} favourite`
-        this.setState({ favourites: [...favourited]})
+        const favourites = this.tagFavourites([...favourited, ...previiousFavourite])
+        this.setState({ favourites })
+    }
+
+    tagFavourites(favourites) {
+        return favourites.map(favourite => {
+            favourite.favourited = true
+            return favourite
+        })
     }
 
     displayWaste(waste, index) {
+        const favourited = waste.favourited ? 'favourite' : ''
         return (<div className="card-group" key={index}>
             <div className="card contain-div custom">
                 <p className="lead inline">
-                <i id={waste.title} onClick={this.favourite.bind(this)} className="fa fa-star inline default" aria-hidden="true"></i>
+                <i id={waste.title} onClick={this.favourite.bind(this)} className={`fa fa-star inline default ${favourited}`} aria-hidden="true"></i>
                     <strong className="move-right">{waste.title}</strong>
                 </p>
                 <br />
@@ -89,6 +98,7 @@ class Layout extends Component {
     }
 
     render() {
+        console.log(this.state)
         return (
             <div className="container">
                 <div className="card">
