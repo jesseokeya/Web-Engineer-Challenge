@@ -1,0 +1,39 @@
+.card {
+    margin-top: 3%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.bg-custom {
+    background: linear-gradient(to right, #1d5c91 0%, #229261 100%);
+}
+
+.btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color:  #229261 !important;
+    border: 1px solid  #229261;
+    margin-top: -5px;
+}
+
+.jumbotron-up {
+    margin-top: -4%;
+}
+
+.text-head {
+    font-weight: bold;
+    color: #41a570;
+}
+
+.jumbotron {
+    background: #f7fefa;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.navbar {
+    padding: 2.2rem 1rem;
+}
+
+.container { 
+    width: 80%;
+}
