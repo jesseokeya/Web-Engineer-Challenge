@@ -17,6 +17,6 @@ app.use(jsonParser);
 
 app.use('/api/', router);
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT || 3002
 
 app.listen(PORT, _ => console.log(`server running on port *${PORT}`))
