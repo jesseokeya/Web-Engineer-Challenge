@@ -1,17 +1,20 @@
+const _ = require('lodash')
 const express = require('express')
 const router = express.Router()
 const { getWastes } = require('../util')
 const Waste = require('../models/waste')
 
-
 router.get('/wastes', async (req, res) => {
-    const searchQuery = req.query.search
-    const wastes = await getWastes()
+    let searchQuery = req.query.query, wastes = await getWastes()
+    if (!_.isEmpty(searchQuery)) {
+        searchQuery = searchQuery.trim().toLowerCase()
+        wastes = wastes.filter(
+            waste => waste.title.trim().toLowerCase().includes(searchQuery) || 
+            waste.keywords.trim().toLowerCase().includes(searchQuery) ||
+            waste.category.trim().toLowerCase().includes(searchQuery)
+        )
+    }
     res.send(wastes)
-})
-
-router.get('/wastes/:wasteId', (req, res) => {
-    const id = req.params.waste
 })
 
 module.exports = router
