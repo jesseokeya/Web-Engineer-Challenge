@@ -2,7 +2,6 @@ const _ = require('lodash')
 const express = require('express')
 const router = express.Router()
 const { getWastes } = require('../util')
-const Waste = require('../models/waste')
 
 router.get('/wastes', async (req, res) => {
     let searchQuery = req.query.query, wastes = await getWastes()
