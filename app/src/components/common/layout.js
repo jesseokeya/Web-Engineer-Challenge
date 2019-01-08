@@ -60,9 +60,7 @@ class Layout extends Component {
         const favourites = this.state.favourites.map(favourite => favourite.title)
         wastes = wastes.map(waste => {
             favourites.forEach(title => {
-                if (waste.title.trim() === title.trim()) {
-                    waste.favourited = true
-                }
+                waste.favourited = waste.title.trim() === title.trim() ? true : false
             })
             return waste
         })
@@ -93,7 +91,6 @@ class Layout extends Component {
             e.target.className = `fa fa-star inline default`
             let favourites = this.state.favourites
             favourites = favourites.filter(favourite => favourite.title.trim() !== title)
-            console.log(favourites)
             this.setState({ favourites })
         }
     }
