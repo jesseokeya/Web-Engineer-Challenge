@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "app": "cd app && npm start & cd ..",
+    "start": "concurrently \"nodemon server.js\" \"npm run app\""
   },
   "repository": {
     "type": "git",
@@ -22,14 +23,15 @@
   "bugs": {
     "url": "https://github.com/jesseokeya/Web-Engineer-Challenge/issues"
   },
-  "homepage": "https://github.com/jesseokeya/Web-Engineer-Challenge#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
     "express": "^4.16.4",
     "mongoose": "^5.4.2",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.9"
   }
 }
