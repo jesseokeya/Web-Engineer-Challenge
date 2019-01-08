@@ -1,11 +1,5 @@
 version: '3'
 services:
-  client:
-    image: web-challenge/server
-    depends_on:
-      - server
-    ports:
-      - '3000:3000'
   server:
     build:
       dockerfile: Dockerfile
@@ -15,3 +9,14 @@ services:
       - ./:/client
     ports:
       - '3001:3001'
+  client:
+    build:
+      dockerfile: Dockerfile.client
+      context: ./
+    depends_on:
+      - server
+    volumes:
+      - ./app/node_modules:/client/node_modules
+      - ./app:/client
+    ports:
+      - '3000:3000'
