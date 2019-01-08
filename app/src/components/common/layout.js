@@ -56,7 +56,7 @@ class Layout extends Component {
     }
 
     formatBody(waste) {
-
+        const items = waste.body.split('')
     }
 
     displayWastes() {
@@ -77,6 +77,7 @@ class Layout extends Component {
                     marginTop: '-12%'
                 }}>
                     <ul>
+                        {waste.body}
                         <li className="list-item">Tetskenjen3 qkjhemnwn3 qkjhemnw</li>
                         <li className="list-item">n3 qkjhemnw</li>
                         <li className="list-item">m c2qdj3de2</li>
