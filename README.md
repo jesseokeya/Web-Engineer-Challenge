@@ -4,7 +4,9 @@
 
 [![Dependency Status](https://david-dm.org/sahat/hackathon-starter/status.svg?style=flat)](https://david-dm.org/sahat/hackathon-starter) [![Build Status](https://travis-ci.org/sahat/hackathon-starter.svg?branch=master)](https://travis-ci.org/sahat/hackathon-starter)
 
-**Live Site**: https://web-engineer-challenge.appspot.com
+**Live Site**: https://web-engineer-challenge.appspot.com <br/>
+**Application**: https://www.shopify.ca/careers/web-engineer-intern-summer-2019-7f4bd3 <br/>
+**Challenge**: https://cdn.shopify.com/static/web-eng-challenge-summer-2019/index.md </br>
 
 ## Getting Started
 
