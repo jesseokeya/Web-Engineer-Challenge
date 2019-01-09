@@ -23,6 +23,6 @@ app.use('/', (_, res) => {
 
 app.use('/api/', router);
 
-const PORT = process.env.PORT || 3002
+const PORT = process.env.PORT || 3001
 
 app.listen(PORT, _ => console.log(`server running on port *${PORT}`))
