@@ -1,10 +1,12 @@
 import axios from 'axios'
 import { GET_WASTES, SEARCH_WASTES, GET_ERRORS, LOADING } from './types';
 
+const url = window.location.host.includes('localhost') ? 'http://localhost:3001' : ''
+
 const getWastes = _ => dispatch => {
     dispatch(setLoading())
     axios
-        .get(`/api/wastes`)
+        .get(`${url}/api/wastes`)
         .then(res =>
             dispatch({
                 type: GET_WASTES,
@@ -22,7 +24,7 @@ const getWastes = _ => dispatch => {
 const searchWastes = ({ search }) => dispatch => {
     dispatch(setLoading())
     axios
-        .get(`/api/wastes?query=${search}`)
+        .get(`${url}/api/wastes?query=${search}`)
         .then(res =>
             dispatch({
                 type: SEARCH_WASTES,

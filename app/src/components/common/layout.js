@@ -12,7 +12,7 @@ class Layout extends Component {
             favourites: [],
             wastes: [],
             search: '',
-            loading: true
+            loading: false
         }
     }
 
@@ -32,25 +32,29 @@ class Layout extends Component {
             loading: nextProps.wastes.loading
         })
     }
-
+    /* called whenevr page is loaded  */
     componentDidMount() {
+        /* attaches an event listener to id search  */
         const search = $('#search')
         search.keypress(e => {
             if (e.which === 13) {
                 $('#searchButton').click()
             }
         })
-        this.props.getWastes()
+        /* this.props.getWastes() */
     }
 
+    /* updates state search to keep track of search field(s) */
     handleChange(e) {
         this.setState({ [e.target.name]: e.target.value })
     }
 
+    /* sends request to the server via reduc actions to get wastes based on your search field */
     handleSubmit() {
         this.setState({ loading: true }, _ => this.props.searchWastes(this.state))
     }
 
+    /* displays loading animation */
     loading() {
         return this.state.loading &&
             <div className="text-center">
@@ -58,6 +62,7 @@ class Layout extends Component {
             </div>
     }
 
+     /* displays loading animation */
     ensureFavourites(wastes) {
         const favourites = this.state.favourites.map(favourite => favourite.title)
         wastes = wastes.map(waste => {
@@ -67,6 +72,7 @@ class Layout extends Component {
         return wastes
     }
 
+    /* displays all favourited waste items */
     displayFavourites() {
         return this.state.favourites.length > 0 &&
             <div className="jumbotron">
@@ -77,6 +83,7 @@ class Layout extends Component {
             </div>
     }
 
+    /* favourite a waste item */
     favourite(e) {
         const title = e.target.id.trim()
         const className = e.target.className
@@ -90,7 +97,7 @@ class Layout extends Component {
         }
         if (className.trim() === `fa fa-star inline default favourite`) {
             const wastes = this.ensureFavourites(this.state.wastes)
-            const target = $( `i[name='${e.target.id}']`)
+            const target = $(`i[name='${e.target.id}']`)
             target.removeClass('favourite')
             e.target.className = `fa fa-star inline default`
             let favourites = this.state.favourites
@@ -99,6 +106,7 @@ class Layout extends Component {
         }
     }
 
+    /* tags favourited items */
     tagFavourites(favourites) {
         return favourites.map(favourite => {
             favourite.favourited = true
@@ -106,6 +114,7 @@ class Layout extends Component {
         })
     }
 
+    /* displays a particular waste item */
     displayWaste(waste, index) {
         const favourited = waste.favourited && waste.favourited === true ? 'favourite' : ''
         return (<div className="card-group" key={index}>
@@ -122,6 +131,21 @@ class Layout extends Component {
         </div>)
     }
 
+    /* displays an alert message whenver search field is empty to encourage you to search */
+    displayMessage() {
+        return (
+            <div className="text-center">
+                <div className="alert alert-info alert-dismissible fade show" role="alert">
+                    <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>waste wizard lookup</strong> start searching for waste items 🙂
+                </div>
+            </div>
+        )
+    }
+
+    /* displays all waste items */
     displayWastes() {
         return !this.state.loading &&
             this.state.wastes.length > 0 &&
@@ -153,7 +177,8 @@ class Layout extends Component {
                         </div>
                         <br /> {this.loading()} <br />
                         <div className="container-fluid">
-                            {this.displayWastes()}
+                            {this.state.search && this.displayWastes()}
+                            {!this.state.search && this.displayMessage()}
                         </div>
                     </div>
                     <br />
