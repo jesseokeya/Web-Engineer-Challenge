@@ -47,7 +47,7 @@ Flowchart showing how the client communicates to the server and the requests mad
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+Deployed to google app engine's nodejs flexible environment. [click here](https://web-engineer-challenge.appspot.com) to view web application 
 
 ## Built With
 
