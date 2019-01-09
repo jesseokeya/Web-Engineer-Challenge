@@ -12,7 +12,8 @@ class Layout extends Component {
             favourites: [],
             wastes: [],
             search: '',
-            loading: false
+            loading: false,
+            hasSearched: false,
         }
     }
 
@@ -46,12 +47,12 @@ class Layout extends Component {
 
     /* updates state search to keep track of search field(s) */
     handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value })
+        this.setState({ [e.target.name]: e.target.value, hasSearched: false })
     }
 
     /* sends request to the server via reduc actions to get wastes based on your search field */
     handleSubmit() {
-        this.setState({ loading: true }, _ => this.props.searchWastes(this.state))
+        this.setState({ loading: true, hasSearched: true }, _ => this.props.searchWastes(this.state))
     }
 
     /* displays loading animation */
@@ -132,14 +133,14 @@ class Layout extends Component {
     }
 
     /* displays an alert message whenver search field is empty to encourage you to search */
-    displayMessage() {
+    alert(level, { heading, message }) {
         return (
             <div className="text-center">
-                <div className="alert alert-info alert-dismissible fade show" role="alert">
+                <div className={`alert alert-${level} alert-dismissible fade show`} role="alert">
                     <button type="button" className="close" data-dismiss="alert" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <strong>waste wizard lookup</strong> start searching for waste items 🙂
+                    <strong>{heading}</strong> {message}
                 </div>
             </div>
         )
@@ -150,6 +151,22 @@ class Layout extends Component {
         return !this.state.loading &&
             this.state.wastes.length > 0 &&
             this.state.wastes.map((waste, index) => this.displayWaste(waste, index))
+    }
+
+    /* displays an alert message whenver search field is empty to encourage you to search */
+    displayDangerAlert() {
+        return this.state.search.length > 0 && this.state.wastes.length <= 0 && this.state.hasSearched && this.alert('danger', { 
+            heading: 'Not Found!',
+            message: `no waste item(s) matching ${this.state.search} 🙁`
+        })
+    }
+
+    /* displays an alert message whenver search term was not found */
+    displayInfoAlert() {
+        return !this.state.search.length > 0 && this.state.wastes.length <= 0 
+        && this.alert('info', {
+        heading: 'Lookup!',
+        message: 'start searching for waste items 🙂'})
     }
 
     render() {
@@ -178,7 +195,8 @@ class Layout extends Component {
                         <br /> {this.loading()} <br />
                         <div className="container-fluid">
                             {this.state.search && this.displayWastes()}
-                            {!this.state.search && this.displayMessage()}
+                            {!this.state.loading && this.displayDangerAlert()}
+                            {this.displayInfoAlert()}
                         </div>
                     </div>
                     <br />
