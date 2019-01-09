@@ -51,9 +51,9 @@ Deployed to google app engine's nodejs flexible environment. [click here](https:
 
 ## Built With
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [React](https://reactjs.org/) - The Frontend Web Framework Used
+* [Npm](https://www.npmjs.com/) - Dependency Management
+* [Express](https://expressjs.com/) - The Server Framework Used
 
 
 ## License
