@@ -4,7 +4,6 @@ node_js:
 sudo: required
 script:
   - npm install
-after_script:  
   - npm test -- --coverage
 after_success:
   - openssl enc -in serviceAccount.json.enc -out serviceAccount.json -d -aes256 -k $SECRET_KEY
