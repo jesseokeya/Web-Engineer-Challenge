@@ -4,7 +4,7 @@ import { GET_WASTES, SEARCH_WASTES, GET_ERRORS, LOADING } from './types';
 const getWastes = _ => dispatch => {
     dispatch(setLoading())
     axios
-        .get(`http://localhost:3001/api/wastes`)
+        .get(`/api/wastes`)
         .then(res =>
             dispatch({
                 type: GET_WASTES,
@@ -22,7 +22,7 @@ const getWastes = _ => dispatch => {
 const searchWastes = ({ search }) => dispatch => {
     dispatch(setLoading())
     axios
-        .get(`http://localhost:3001/api/wastes?query=${search}`)
+        .get(`/api/wastes?query=${search}`)
         .then(res =>
             dispatch({
                 type: SEARCH_WASTES,
