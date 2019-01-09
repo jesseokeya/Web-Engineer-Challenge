@@ -1,6 +1,6 @@
 env: flex
 runtime: custom
-service: web-engineer-challenge
+service: default
 manual_scaling:
   instances: 1
 resources:
