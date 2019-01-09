@@ -59,13 +59,7 @@ class Layout extends Component {
     ensureFavourites(wastes) {
         const favourites = this.state.favourites.map(favourite => favourite.title)
         wastes = wastes.map(waste => {
-            favourites.forEach(title => {
-                if (waste.title.trim() === title.trim() ) {
-                    waste.favourited = true
-                } else {
-                    waste.favourited = false
-                }
-            })
+            waste.favourited = favourites.includes(waste.title) ? true : false
             return waste
         })
         return wastes
@@ -82,22 +76,23 @@ class Layout extends Component {
     }
 
     favourite(e) {
-        const title = e.target.id.trim()
+        const title = e.target.id
         const className = e.target.className
-        const wastes = this.ensureFavourites(this.state.wastes)
-        this.setState({ wastes })
         if (className.trim() === 'fa fa-star inline default') {
-            const favourited = this.state.wastes.filter(waste => waste.title.trim() === title)
+            const favourited = this.state.wastes.filter(waste => waste.title === title)
             const previiousFavourite = this.state.favourites
             e.target.className = `${e.target.className} favourite`
             const favourites = this.tagFavourites([...favourited, ...previiousFavourite])
             this.setState({ favourites })
         }
         if (className.trim() === `fa fa-star inline default favourite`) {
+            const wastes = this.ensureFavourites(this.state.wastes)
+            const target = $( `i[name='${title}']`)
+            target.removeClass('favourite')
             e.target.className = `fa fa-star inline default`
             let favourites = this.state.favourites
-            favourites = favourites.filter(favourite => favourite.title.trim() !== title)
-            this.setState({ favourites })
+            favourites = favourites.filter(favourite => favourite.title !== title)
+            this.setState({ favourites, wastes })
         }
     }
 
@@ -109,11 +104,11 @@ class Layout extends Component {
     }
 
     displayWaste(waste, index) {
-        const favourited = waste.favourited ? 'favourite' : ''
+        const favourited = waste.favourited && waste.favourited === true ? 'favourite' : ''
         return (<div className="card-group" key={index}>
             <div className="card contain-div custom">
                 <p className="lead inline">
-                    <i id={waste.title} onClick={this.favourite.bind(this)} className={`fa fa-star inline default ${favourited}`} aria-hidden="true"></i>
+                    <i name={waste.title} id={waste.title} onClick={this.favourite.bind(this)} className={`fa fa-star inline default ${favourited}`} aria-hidden="true"></i>
                     <strong className="move-right">{waste.title}</strong>
                 </p>
                 <br />
