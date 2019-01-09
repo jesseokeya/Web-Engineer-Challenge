@@ -1,7 +1,11 @@
 language: node_js
+node_js:  
+  - "node"
 sudo: required
 script:
-  - npm install && npm test -- --coverage
+  - npm install
+after_script:  
+  - npm test -- --coverage
 after_success:
   - openssl enc -in serviceAccount.json.enc -out serviceAccount.json -d -aes256 -k $SECRET_KEY
   - gcloud version || true
