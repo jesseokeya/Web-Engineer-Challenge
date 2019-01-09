@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getWastes, searchWastes } from '../../actions/wasteActions';
 
+/* class Layout extend component */
 class Layout extends Component {
     constructor() {
         super()
@@ -15,6 +16,7 @@ class Layout extends Component {
         }
     }
 
+    /* massages data whenever a new prop is passed in */
     componentWillReceiveProps(nextProps) {
         let wastes = nextProps.wastes.wastes.map(waste => {
             let body = $.parseHTML(waste.body)[0].data
