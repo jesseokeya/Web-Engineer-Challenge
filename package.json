@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "jest test/*.test.js",
-    "concurrently": "concurrently \"nodemon server.js\" \"npm run app\"",
+    "concurrently": "concurrently \"nodemon server.js\" \"npm run client\"",
     "start": "nodemon server.js",
+    "client": "cd app && npm start && cd ..",
     "app": "npm run concurrently"
   },
   "repository": {
