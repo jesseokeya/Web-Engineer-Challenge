@@ -10,12 +10,14 @@ const jsonParser = bodyParser.json()
 const urlencodedParser = bodyParser.urlencoded({ extended: true })
 
 app.use(logger('dev'))
+
 app.use(cors())
 
-app.use(urlencodedParser);
-app.use(jsonParser);
+app.use(urlencodedParser)
 
-app.use('/api/', router);
+app.use(jsonParser)
+
+app.use('/api/', router)
 
 app.use(express.static(__dirname + '/app/build/'))
 
