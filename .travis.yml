@@ -1,0 +1,27 @@
+language: node_js
+sudo: required
+script:
+  - npm install && npm test -- --coverage
+after_success:
+  - openssl enc -in serviceAccount.json.enc -out serviceAccount.json -d -aes256 -k $SECRET_KEY
+  - gcloud version || true
+  - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf $HOME/google-cloud-sdk; export CLOUDSDK_CORE_DISABLE_PROMPTS=1; curl https://sdk.cloud.google.com | bash; fi
+  # Add gcloud to $PATH
+  - source /home/travis/google-cloud-sdk/path.bash.inc
+  - gcloud version
+  - gcloud auth activate-service-account --key-file serviceAccount.json
+  - gcloud config set project orezime-227223
+  - gcloud config set compute/zone europe-west3-a
+  - docker build -t orezime/client .
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push orezime/client
+  - bash ./deploy.sh
+notifications:
+  email:
+    recipients:
+      - jesseokeya@gmail.com
+      - poidogho@gmail.com
+    on_success: always
+    on_failure: always
