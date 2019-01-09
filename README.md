@@ -8,7 +8,9 @@
 
 **Application**: https://www.shopify.ca/careers/web-engineer-intern-summer-2019-7f4bd3 <br/>
 
-**Challenge**: https://cdn.shopify.com/static/web-eng-challenge-summer-2019/index.md </br>
+**Challenge**: https://cdn.shopify.com/static/web-eng-challenge-summer-2019/index.md <br/>
+
+**Design**: http://cdn.shopify.com/static/web-eng-challenge-summer-2019/design.png <br/>
 
 ## Getting Started
 
