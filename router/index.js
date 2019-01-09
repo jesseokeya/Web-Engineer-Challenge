@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const express = require('express')
 const router = express.Router()
+
 const { getWastes } = require('../util')
 
 router.get('/wastes', async (req, res) => {
