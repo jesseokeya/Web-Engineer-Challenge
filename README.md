@@ -5,7 +5,9 @@
 [![Dependency Status](https://david-dm.org/sahat/hackathon-starter/status.svg?style=flat)](https://david-dm.org/sahat/hackathon-starter) [![Build Status](https://travis-ci.org/sahat/hackathon-starter.svg?branch=master)](https://travis-ci.org/sahat/hackathon-starter)
 
 **Live Site**: https://web-engineer-challenge.appspot.com <br/>
+
 **Application**: https://www.shopify.ca/careers/web-engineer-intern-summer-2019-7f4bd3 <br/>
+
 **Challenge**: https://cdn.shopify.com/static/web-eng-challenge-summer-2019/index.md </br>
 
 ## Getting Started
@@ -38,25 +40,10 @@ npm start
 
 End with an example of getting some data out of the system or using it for a little demo
 
-## Running the tests
+## Structure
+Flowchart showing how the client communicates to the server and the requests made
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
+![](/images/structure.png?raw=true)
 
 ## Deployment
 
