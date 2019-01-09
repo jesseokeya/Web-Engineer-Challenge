@@ -19,9 +19,7 @@ app.use('/api/', router);
 
 app.use(express.static(__dirname + '/app/build/'))
 
-app.use('/', (_, res) => {
-    res.sendFile(__dirname + '/app/build/index.html')
-});
+app.use('/', (_, res) => res.sendFile(__dirname + '/app/build/index.html'))
 
 const PORT = process.env.PORT || 3001
 
