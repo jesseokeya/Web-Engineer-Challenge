@@ -95,19 +95,21 @@ class Layout extends Component {
         const title = e.target.id.trim()
         const className = e.target.className
         if (className.trim() === 'fa fa-star inline default') {
+            const wastes = this.ensureFavourites(this.state.wastes)
             const favourited = this.state.wastes.filter(waste => waste.title.trim() === title)
             const previiousFavourite = this.state.favourites
             e.target.className = `${e.target.className} favourite`
             const favourites = this.tagFavourites([...favourited, ...previiousFavourite])
-            this.setState({ favourites })
+            this.setState({ favourites, wastes })
         }
         if (className.trim() === `fa fa-star inline default favourite`) {
+            const wastes = this.ensureFavourites(this.state.wastes)
             const target = $(`i[name='${e.target.id}']`)
             target.removeClass('favourite')
             e.target.className = `fa fa-star inline default`
             let favourites = this.state.favourites
             favourites = favourites.filter(favourite => favourite.title.trim() !== title)
-            this.setState({ favourites }, this.ensureFavouritedIntegrity)
+            this.setState({ favourites, wastes }, this.ensureFavouritedIntegrity)
         }
     }
 
