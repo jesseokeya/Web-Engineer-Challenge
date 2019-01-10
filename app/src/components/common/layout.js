@@ -84,26 +84,30 @@ class Layout extends Component {
             </div>
     }
 
+    /* makes sure the favourited items stay favouried with the green star indication */
+    ensureFavouritedIntegrity() {
+        const favourites = this.state.favourites.map(favourite => $(`i[name='${favourite.title}']`))
+        favourites.forEach(favourite => favourite.addClass('favourite'))
+    }
+
     /* favourite a waste item */
     favourite(e) {
         const title = e.target.id.trim()
         const className = e.target.className
         if (className.trim() === 'fa fa-star inline default') {
-            const wastes = this.ensureFavourites(this.state.wastes)
             const favourited = this.state.wastes.filter(waste => waste.title.trim() === title)
             const previiousFavourite = this.state.favourites
             e.target.className = `${e.target.className} favourite`
             const favourites = this.tagFavourites([...favourited, ...previiousFavourite])
-            this.setState({ favourites, wastes })
+            this.setState({ favourites })
         }
         if (className.trim() === `fa fa-star inline default favourite`) {
-            const wastes = this.ensureFavourites(this.state.wastes)
             const target = $(`i[name='${e.target.id}']`)
             target.removeClass('favourite')
             e.target.className = `fa fa-star inline default`
             let favourites = this.state.favourites
             favourites = favourites.filter(favourite => favourite.title.trim() !== title)
-            this.setState({ favourites, wastes })
+            this.setState({ favourites }, this.ensureFavouritedIntegrity)
         }
     }
 
