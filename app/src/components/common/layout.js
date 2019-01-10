@@ -169,8 +169,7 @@ class Layout extends Component {
 
     /* displays an alert message whenver search term was not found */
     displayInfoAlert() {
-        return !this.state.search.length > 0 && this.state.wastes.length <= 0 
-        && this.alert('info', {
+        return !this.state.search.length > 0 && this.alert('info', {
         heading: 'Lookup!',
         message: 'start searching for waste items 🙂'})
     }
