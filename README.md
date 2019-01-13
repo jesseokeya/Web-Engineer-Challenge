@@ -49,7 +49,7 @@ Flowchart showing how the client communicates to the server and the requests mad
 
 ## Deployment
 
-Deployed to google app engine's nodejs flexible environment. [click here](https://web-engineer-challenge.appspot.com) to view web application. .travis.yml triggers an auto build and pushes to google's app engine which runs whenever code is pushed to master
+Deployed to google app engine's nodejs flexible environment. [click here](https://web-engineer-challenge.appspot.com) to view web application. .travis.yml triggers an auto build and pushes to google's app engine
 
 ## Built With
 
