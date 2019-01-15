@@ -28,19 +28,15 @@ node >=8.0.0 && <11.0.0
 
 A step by step series of examples that tell you how to get a development env running
 
-Say what the step will be
-
 ```
 npm install
 ```
 
-And repeat
+And
 
 ```
 npm start
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Structure
 Flowchart showing how the client communicates to the server and the requests made
