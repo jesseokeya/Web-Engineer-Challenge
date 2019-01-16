@@ -4,7 +4,7 @@
 
 [![Dependency Status](https://david-dm.org/sahat/hackathon-starter/status.svg?style=flat)](https://david-dm.org/sahat/hackathon-starter) [![Build Status](https://travis-ci.org/sahat/hackathon-starter.svg?branch=master)](https://travis-ci.org/sahat/hackathon-starter)
 
-**Live Site**: https://web-engineer-challenge.appspot.com <br/>
+**Live Site**: https://shopify-web-challenge.appspot.com <br/>
 
 **Application**: https://www.shopify.ca/careers/web-engineer-intern-summer-2019-7f4bd3 <br/>
 
@@ -45,7 +45,7 @@ Flowchart showing how the client communicates to the server and the requests mad
 
 ## Deployment
 
-Deployed to google app engine's nodejs flexible environment. [click here](https://web-engineer-challenge.appspot.com) to view web application. .travis.yml triggers an auto build and pushes to google's app engine
+Deployed to google app engine's nodejs flexible environment. [click here](https://shopify-web-challenge.appspot.com) to view web application. .travis.yml triggers an auto build and pushes to google's app engine
 
 ## Built With
 
